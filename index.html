@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema KLT - Gerenciamento de Etiquetas e Cotações</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Cabeçalho -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">🏷️ SISTEMA KLT</h1>
+                <p class="subtitle">GERENCIAMENTO DE ETIQUETAS E COTAÇÕES DE FRETE</p>
+                <p class="version">Versão 2026.2.0 • Desenvolvido por: KLT INFORMÁTICA E TECNOLOGIA</p>
+            </div>
+        </header>
+
+        <!-- Tela Principal: Menu de Botões -->
+        <main id="mainMenu" class="main-menu active">
+            <div class="menu-grid">
+                <button class="menu-btn" data-page="cotacao">
+                    <span class="menu-icon">💰</span>
+                    <span class="menu-title">COTAÇÃO DE FRETE</span>
+                    <span class="menu-desc">Gerar cotações de frete completas</span>
+                </button>
+                <button class="menu-btn" data-page="etiquetas">
+                    <span class="menu-icon">🏷️</span>
+                    <span class="menu-title">GERAR ETIQUETAS</span>
+                    <span class="menu-desc">Criar etiquetas para envio</span>
+                </button>
+                <button class="menu-btn" data-page="historico">
+                    <span class="menu-icon">📊</span>
+                    <span class="menu-title">HISTÓRICO</span>
+                    <span class="menu-desc">Consultar cotações e etiquetas</span>
+                </button>
+                <button class="menu-btn" data-page="relatorios">
+                    <span class="menu-icon">📈</span>
+                    <span class="menu-title">RELATÓRIOS</span>
+                    <span class="menu-desc">Gerar relatórios gerenciais</span>
+                </button>
+                <button class="menu-btn" data-page="configuracoes">
+                    <span class="menu-icon">⚙️</span>
+                    <span class="menu-title">CONFIGURAÇÕES</span>
+                    <span class="menu-desc">Configurar parâmetros do sistema</span>
+                </button>
+                <button class="menu-btn" id="btnSair">
+                    <span class="menu-icon">🚪</span>
+                    <span class="menu-title">SAIR DO SISTEMA</span>
+                    <span class="menu-desc">Encerrar aplicação</span>
+                </button>
+            </div>
+            <footer class="footer">
+                <span>KLT INFORMÁTICA E TECNOLOGIA • Desenvolvimento de Sistemas para Empresas</span>
+                <span id="dataHora"></span>
+            </footer>
+        </main>
+
+        <!-- Página: Cotação de Frete -->
+        <div id="pageCotacao" class="page">
+            <div class="page-header">
+                <button class="btn-back">← Voltar</button>
+                <h2>💰 COTAÇÃO DE FRETE - POR CONTA DO REMETENTE</h2>
+            </div>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="tabRemetente">📋 Dados do Remetente</button>
+                <button class="tab-btn" data-tab="tabMercadoria">📦 Dados da Mercadoria</button>
+                <button class="tab-btn" data-tab="tabTransportadoras">🚚 Transportadoras</button>
+                <button class="tab-btn" data-tab="tabResultado">📊 Resultado</button>
+            </div>
+            <div class="tab-content">
+                <!-- Aba 1: Remetente -->
+                <div id="tabRemetente" class="tab-pane active">
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label>CNPJ/CPF do Remetente:*</label>
+                            <input type="text" id="remCnpj" value="26.947.090.0001-16">
+                        </div>
+                        <div class="form-field">
+                            <label>Nome/Razão Social:*</label>
+                            <input type="text" id="remNome" placeholder="Digite o nome do remetente">
+                        </div>
+                        <div class="form-field full-width">
+                            <label>Endereço de Saída:*</label>
+                            <textarea id="remEnderecoSaida" rows="2">MERCADORIA SAI DA MATRIZ - RUA GABRIEL FERREIRA, 11, LINDOURO, PINHÃO-PR.</textarea>
+                        </div>
+                        <div class="form-field full-width">
+                            <label>Destinatário:*</label>
+                            <input type="text" id="remDestinatario" placeholder="Nome do destinatário">
+                        </div>
+                        <div class="form-field">
+                            <label>Cidade Destino:*</label>
+                            <input type="text" id="remCidadeDestino" value="CAMPINA DA LAGOA-PR">
+                        </div>
+                        <div class="form-field full-width">
+                            <label>Endereço de Entrega:*</label>
+                            <textarea id="remEnderecoEntrega" rows="2">SECRETARIA DE SAÚDE DE CAMPINA DA LAGOA-PR</textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- Aba 2: Mercadoria -->
+                <div id="tabMercadoria" class="tab-pane">
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label>Valor Total da Nota (R$):*</label>
+                            <input type="number" id="mercValor" value="9357.00" step="0.01">
+                        </div>
+                        <div class="form-field">
+                            <label>Peso Total (KG):*</label>
+                            <input type="number" id="mercPeso" value="11" step="0.1">
+                        </div>
+                        <div class="form-field">
+                            <label>Quantidade de Volumes:*</label>
+                            <input type="number" id="mercVolumes" value="1" step="1">
+                        </div>
+                        <div class="form-field">
+                            <label>Altura (cm):*</label>
+                            <input type="number" id="mercAltura" value="42" step="1">
+                        </div>
+                        <div class="form-field">
+                            <label>Comprimento (cm):*</label>
+                            <input type="number" id="mercComprimento" value="46" step="1">
+                        </div>
+                        <div class="form-field">
+                            <label>Largura (cm):*</label>
+                            <input type="number" id="mercLargura" value="34" step="1">
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <strong>📐 Peso Cúbico:</strong> <span id="pesoCubico">0,00</span> kg
+                    </div>
+                </div>
+                <!-- Aba 3: Transportadoras -->
+                <div id="tabTransportadoras" class="tab-pane">
+                    <table class="data-table" id="tableTransportadoras">
+                        <thead>
+                            <tr><th>TRANSPORTADORA</th><th>CIDADES ATENDIDAS</th><th>PRAZO</th><th>VALOR BASE</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr class="selected"><td>EXPRESSO PRINCESA DOS CAMPOS</td><td>CAMPINA DA LAGOA-PR</td><td>2-3 dias</td><td>R$ 85,00</td></tr>
+                            <tr><td>JAD LOG</td><td>Todo Paraná</td><td>1-2 dias</td><td>R$ 120,00</td></tr>
+                            <tr><td>TRANSPORTADORA SÃO JORGE</td><td>Norte do Paraná</td><td>3-4 dias</td><td>R$ 75,00</td></tr>
+                            <tr><td>VIAÇÃO PLANALTO</td><td>Sul do Brasil</td><td>4-5 dias</td><td>R$ 150,00</td></tr>
+                            <tr><td>ROTA EXPRESS</td><td>Todo Brasil</td><td>2-6 dias</td><td>R$ 200,00</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <strong>Endereço de Entrega:</strong> SECRETARIA DE SAÚDE DE CAMPINA DA LAGOA-PR<br>
+                        <strong>Observação:</strong> Frete por conta do remetente. Valor sujeito a alteração conforme peso cúbico.
+                    </div>
+                </div>
+                <!-- Aba 4: Resultado -->
+                <div id="tabResultado" class="tab-pane">
+                    <pre id="resultadoCotacao" class="result-pre">Preencha os dados nas abas anteriores e clique em "Calcular Cotação".</pre>
+                    <div class="action-buttons">
+                        <button id="btnCalcular" class="btn-primary">📐 Calcular Cotação</button>
+                        <button id="btnSalvarCotacao" class="btn-success">💾 Salvar Cotação</button>
+                        <button id="btnImprimirCotacao" class="btn-secondary">🖨️ Imprimir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página: Gerar Etiquetas -->
+        <div id="pageEtiquetas" class="page">
+            <div class="page-header">
+                <button class="btn-back">← Voltar</button>
+                <h2>🏷️ GERAR ETIQUETAS DE ENVIO</h2>
+            </div>
+            <div class="form-grid" style="max-width:600px; margin:0 auto;">
+                <div class="form-field">
+                    <label>Empresa:*</label>
+                    <select id="etiEmpresa">
+                        <option>KLT INFORMÁTICA E TECNOLOGIA</option>
+                        <option>LEONARDO A VERZA LTDA</option>
+                        <option>ROSEMARA DOS SANTOS</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label>NR COTAÇÃO:*</label>
+                    <input type="text" id="etiNrCotacao" placeholder="Ex: 20260001">
+                </div>
+                <div class="form-field">
+                    <label>VOLUMES (total):*</label>
+                    <input type="number" id="etiVolumes" value="1" min="1">
+                </div>
+                <div class="form-field">
+                    <label>TRANSPORTADORA:*</label>
+                    <input type="text" id="etiTransportadora" placeholder="Ex: Expresso Princesa">
+                </div>
+                <div class="form-field">
+                    <label>NR NOTA:*</label>
+                    <input type="text" id="etiNrNota" placeholder="Número da nota fiscal">
+                </div>
+                <div class="form-field">
+                    <label>DESTINATÁRIO:*</label>
+                    <input type="text" id="etiDestinatario" placeholder="Nome do destinatário">
+                </div>
+            </div>
+            <div class="action-buttons" style="margin-top:20px;">
+                <button id="btnVisualizarEtiqueta" class="btn-primary">👁️ Visualizar Etiqueta</button>
+                <button id="btnGerarEtiquetas" class="btn-success">📦 Gerar Etiquetas</button>
+            </div>
+            <div id="previewEtiqueta" class="preview-box">
+                <h3>Pré-visualização</h3>
+                <pre id="previewEtiquetaText">Preencha os dados para visualizar a etiqueta aqui.</pre>
+            </div>
+        </div>
+
+        <!-- Página: Histórico -->
+        <div id="pageHistorico" class="page">
+            <div class="page-header">
+                <button class="btn-back">← Voltar</button>
+                <h2>📊 HISTÓRICO DE COTAÇÕES</h2>
+            </div>
+            <table class="data-table" id="tableHistorico">
+                <thead><tr><th>ID</th><th>Data</th><th>Destinatário</th><th>Cidade</th><th>Transportadora</th><th>Total</th></tr></thead>
+                <tbody id="historicoBody"></tbody>
+            </table>
+            <div class="action-buttons">
+                <button id="btnDetalhes" class="btn-primary">Ver Detalhes</button>
+            </div>
+        </div>
+
+        <!-- Página: Relatórios -->
+        <div id="pageRelatorios" class="page">
+            <div class="page-header">
+                <button class="btn-back">← Voltar</button>
+                <h2>📈 RELATÓRIOS</h2>
+            </div>
+            <div class="form-row">
+                <label>Tipo de Relatório:</label>
+                <select id="relTipo">
+                    <option value="0">Relatório de Cotações por Período</option>
+                    <option value="1">Relatório de Transportadoras Mais Utilizadas</option>
+                    <option value="2">Relatório de Volumes por Destino</option>
+                    <option value="3">Relatório de Valores de Frete</option>
+                </select>
+                <button id="btnGerarRelatorio" class="btn-primary">Gerar Relatório</button>
+            </div>
+            <pre id="relatorioResultado" class="result-pre">Selecione um tipo de relatório e clique em Gerar.</pre>
+        </div>
+
+        <!-- Página: Configurações -->
+        <div id="pageConfiguracoes" class="page">
+            <div class="page-header">
+                <button class="btn-back">← Voltar</button>
+                <h2>⚙️ CONFIGURAÇÕES DO SISTEMA</h2>
+            </div>
+            <div class="tabs">
+                <button class="tab-config active" data-config="tabParametros">Parâmetros</button>
+                <button class="tab-config" data-config="tabTransportadoras">Transportadoras</button>
+            </div>
+            <div id="tabParametros" class="config-pane active">
+                <div class="form-grid" style="max-width:400px;">
+                    <div class="form-field"><label>Taxa de Seguro (%):</label><input type="number" id="cfgTaxaSeguro" value="1.5" step="0.1"></div>
+                    <div class="form-field"><label>Taxa Ad Valorem (%):</label><input type="number" id="cfgTaxaAdValorem" value="0.5" step="0.1"></div>
+                    <div class="form-field"><label>Taxa por KG (R$):</label><input type="number" id="cfgTaxaKG" value="5.0" step="0.5"></div>
+                    <div class="form-field"><label>Taxa por Volume (R$):</label><input type="number" id="cfgTaxaVolume" value="10.0" step="0.5"></div>
+                </div>
+                <button id="btnSalvarParametros" class="btn-success">Salvar Parâmetros</button>
+            </div>
+            <div id="tabTransportadoras" class="config-pane">
+                <table class="data-table" id="tableConfigTransportadoras">
+                    <thead><tr><th>Transportadora</th><th>Valor Base</th></tr></thead>
+                    <tbody>
+                        <tr><td>EXPRESSO PRINCESA DOS CAMPOS</td><td><input type="number" value="85" step="5" class="transp-valor"></td></tr>
+                        <tr><td>JAD LOG</td><td><input type="number" value="120" step="5" class="transp-valor"></td></tr>
+                        <tr><td>TRANSPORTADORA SÃO JORGE</td><td><input type="number" value="75" step="5" class="transp-valor"></td></tr>
+                        <tr><td>VIAÇÃO PLANALTO</td><td><input type="number" value="150" step="5" class="transp-valor"></td></tr>
+                        <tr><td>ROTA EXPRESS</td><td><input type="number" value="200" step="5" class="transp-valor"></td></tr>
+                    </tbody>
+                </table>
+                <button id="btnSalvarTransportadoras" class="btn-success">Salvar Transportadoras</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Detalhes -->
+    <div id="modalDetalhes" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <pre id="modalTexto" class="result-pre"></pre>
+        </div>
+    </div>
+
+    <!-- Modal de Etiquetas -->
+    <div id="modalEtiquetas" class="modal">
+        <div class="modal-content modal-large">
+            <span class="modal-close">&times;</span>
+            <pre id="modalEtiquetasTexto" class="result-pre"></pre>
+            <div class="action-buttons">
+                <button id="modalImprimirEtiquetas" class="btn-secondary">🖨️ Imprimir</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
